@@ -1,5 +1,8 @@
-### To view the deployed application on Kubernetes  visit  [Yolomy Web link](http://34.168.115.65:3000/)
-# Requirements
+# Yolomy Application
+## Author   :: Mishael Ratemo
+### Application Description
+This is an ecommerce web app for both male and female.
+## Requirements
 Make sure that you have the following installed:
 - [node](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04) 
 - npm 
@@ -8,7 +11,39 @@ Make sure that you have the following installed:
 ## Navigate to the Client Folder 
  `cd client`
 
-******** ************** ***********
+## Run the folllowing command to install the dependencies 
+ `npm install`
+
+## Run the folllowing to start the app
+ `npm start`
+
+## Open a new terminal and run the same commands in the backend folder
+ `cd ../backend`
+
+ `npm install`
+
+ `npm start`
+
+ ### Go ahead a nd add a product (note that the price field only takes a numeric input)
+
+
+ ## Technologies used
+    * BackEnd: * Nodes 
+    * FontEnd:  React 
+    * Database * Mongo
+    * Docker containerization
+
+ ## Using Docker Compose
+ ###   Procedure.
+ * Create <code> docker-compose.yml </code> file
+ * cd into backend and add <code> Dockerfile </code> and add neccessary port(5000) for nodejs
+ * cd into front-end and add <code> Dockerfile </code> and add neccessary port(3000) for react app
+ * ensure you have installed docker compose in your system if not follow this [link](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04) for linux system.
+ * run <i><code>  sudo docker-compose build </code></i> to start building
+ * the run <i><code> sudo docker-compose up </code></i> to start application
+
+
+
 
 ### RUNNING THE APPLICATION WITHOUT DOCKER COMPOSE FILE
 ## Run the folllowing command to install the dependencies 
@@ -30,8 +65,8 @@ Make sure that you have the following installed:
 
 ### RUNNING THE APPLICATION WITH DOCKER COMPOSE FILE
  ## Instructions
-- Fork and Clone :  `https://github.com/ActuaryEmma/yolo`
-- Change in to yolo directory :  `cd yolo`
+- Fork and Clone :  `https://github.com/MishaelRatemo/yolo-commerce.git`
+- Change in to yolo directory :  `cd yolo-commerce`
 - Add MongoDB configuration on server.js file
 - Add `Dockerfile` 
 - Add `docker-compose.yml` file (more details on `docker-compose.yml` and `docker file` are on `explanation.md` file)
@@ -127,14 +162,14 @@ A YAML file for a Kubernetes resource typically includes the following fields:
             spec:
               containers:
                 - name: clientcontainer
-                  image: actuaryemma/frontend:1
+                  image: mishaelr/frontend:1
                   ports:
                     - containerPort: 3000
                     ```
 
-  - This `client.yml` file creates a Pod named `yolo-client` with a single container named `clientcontainer` that runs the `actuaryemma/frontend:1` image from docker hub and exposes port `3000`.
+  - This `client.yml` file creates a Pod named `yolo-client` with a single container named `clientcontainer` that runs the `mishaelr/frontend:1` image from docker hub and exposes port `3000`.
 
-  - This `api.yml` file creates a Pod named `yolo-api` with a single container named `backendcontainer` that runs the `actuaryemma/api:1` image from docker hub and exposes port `5000`.
+  - This `api.yml` file creates a Pod named `yolo-api` with a single container named `backendcontainer` that runs the `mishaelr/api:1` image from docker hub and exposes port `5000`.
 
   **Service**
 `
@@ -191,26 +226,35 @@ This command will show the details of the service created by the above yaml file
   - This will delete the resources defined in myfile.yaml : kubectl delete -f client.yaml and kubectl delete -f api.yaml
   - This will create service LoadBalancer for yolo.front and ClusterIP for yolo.api as per below table
 ```
-emma_gachoki@cloudshell:~ (yolo-project-375319)$ kubectl get services --namespace my-yolo-app
-NAME         TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)          AGE
-yolo-api     ClusterIP      10.108.8.144   <none>          5000/TCP         7h6m
-yolo-front   LoadBalancer   10.108.5.175   34.168.115.65   3000:31692/TCP   7h8m
+ratemomishael@cloudshell:~ (shop-375720)$ kubectl get services
+NAME                          TYPE           CLUSTER-IP     EXTERNAL-IP       PORT(S)          AGE
+kubernetes                    ClusterIP      10.105.0.1     <none>            443/TCP          33h
+shop-846cfbf6d8-9kmzv-sdhld   LoadBalancer   10.105.1.133   130.211.233.117   3000:30970/TCP   33h
+shop-service                  LoadBalancer   10.105.1.66    34.134.45.113     80:31360/TCP     33h
+yolo-app-service              LoadBalancer   10.105.2.111   35.224.196.115    300:32421/TCP    38m
+
 ```
-To view pods in your namespace run below command
-```
-emma_gachoki@cloudshell:~ (yolo-project-375319)$ kubectl get pods --namespace my-yolo-app
-NAME                                           READY   STATUS    RESTARTS   AGE
-mongodb-kubernetes-operator-678dbb647b-jtx8j   0/1     Pending   0          3h44m
-yolo-api-6b6cc8cc7-66bf4                       1/1     Running   0          7h5m
-yolo-api-6b6cc8cc7-6zcvs                       1/1     Running   0          7h5m
-yolo-api-6b6cc8cc7-k2cxg                       1/1     Running   0          7h5m
-yolo-front-58985d9d4-2tvxf                     1/1     Running   0          7h7m
-yolo-front-58985d9d4-j595b                     1/1     Running   0          7h7m
-yolo-front-58985d9d4-jrjt7                     1/1     Running   0          7h7m 
-```
+NB. Time show here is as per the time of creation of the service so they may differ from yours
+
 
 
 - Get all objects in the namespace my-yolo-app and label app=yolo
-   `kubectl get all -n my-yolo-app -l app=yolo`
+   `kubectl get all -n yournamespace -l app=yourapp`
 
-### To view the deployed application visit  [Yolomy Web link](http://34.168.115.65:3000/)
+   eg. `kubectl get all -n default -l app=shop`
+
+### To view the deployed application visit  [shop Web link](http://35.224.196.115:300/)
+
+## Contact Information 
+
+If you have any question or contributions and support, please email me at [ratemomishael@gmail.com](ratemomishael@gmail.com)
+
+LinkedIn - [Mishael Ratemo](www.linkedin.com/in/mishael-mosoti-37b786161/)
+
+
+Portfolio- [Mishael](https://mishaelratemo.github.io/my_portfolio/)
+# Licence
+
+Click to  [MIT License](Licence) view
+
+ Copyright (c) 2023 | Mishael Ratemo
