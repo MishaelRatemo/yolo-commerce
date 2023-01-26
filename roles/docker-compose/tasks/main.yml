@@ -1,0 +1,6 @@
+---
+- name: Run container
+  become: True
+  shell: docker-compose -f     /home/mishael/coding/devops/yolo-commerce/yolo-commerce/docker-compose.yml up --build -d
+  args:
+    executable: /bin/bash

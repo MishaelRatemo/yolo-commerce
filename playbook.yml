@@ -1,0 +1,35 @@
+
+---
+- name: Yolo Playbook
+  hosts: all
+  become: true
+  vars:
+    repo: "https://github.com/MishaelRatemo/yolo-commerce"
+    dest: "/home/mishael/coding/devops/yolo-commerce/yolo-commerce"
+  tasks:
+    - name: Install Git
+      include_role:
+        name: git
+    
+    - name: checkout git repo
+      git:
+        repo: "{{ repo }}"
+        dest: "{{ dest }}"
+
+
+    - name: Install Docker
+      include_role:
+        name: docker
+
+    - name: Install image and container for the applicaton
+      include_role:
+        name: docker-compose
+
+
+        
+        
+        
+
+       
+
+
